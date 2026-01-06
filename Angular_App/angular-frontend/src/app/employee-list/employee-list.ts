@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-// Removed circular import of EmployeeList
+import { Employee } from '../employee';
 
 @Component({
   selector: 'app-employee-list',
@@ -9,8 +9,21 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './employee-list.css',
 })
 export class EmployeeListComponent {
-
+  employees: Employee[] | undefined;
+  ngOnInit() {
+    this.employees = [{
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "emailId": "john.doe@example.com"
+    },
+    {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emailId": "jane.smith@example.com"
+    }];
 }
-// Removed circular export of EmployeeList
+}
 export { EmployeeListComponent as EmployeeList };
 
