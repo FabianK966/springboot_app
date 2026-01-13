@@ -4,28 +4,27 @@ package net.javaguides.springboot.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table( name = "Orders")
-public class Orders {
+@Table( name = "orders")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Oid;
 
-    @Column(name = "Articles")
-    private String Articles;
+    @Column(name = "articles")
+    private String articles;
     @Column(name = "cost")
     private double cost;
-    @Column(name = "Quantity")
-    private int Quantity;
+    @Column(name = "quantity")
+    private int quantity;
 
-    public Orders() {
-
+    public Order() {
     }
 
-    public Orders(String Articles, double cost, int Quantity) {
-        this.Articles = Articles;
+    public Order(String articles, double cost, int quantity) {
+        this.articles = articles;
         this.cost = cost;
-        this.Quantity = Quantity;
+        this.quantity = quantity;
     }
 
     public long getId() {
@@ -37,11 +36,11 @@ public class Orders {
     }
 
     public String getArticles() {
-        return Articles;
+        return articles;
     }
 
     public void setArticles(String articles) {
-        this.Articles = articles;
+        this.articles = articles;
     }
 
     public double getCost() {
@@ -52,10 +51,10 @@ public class Orders {
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
-        this.Quantity = quantity;
+        this.quantity = quantity;
     }
 }

@@ -1,11 +1,8 @@
 package net.javaguides.springboot.controller;
-
-import net.javaguides.springboot.model.Orders;
+import net.javaguides.springboot.model.Order;
 import net.javaguides.springboot.repository.OrdersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,11 +10,20 @@ import java.util.List;
 @RequestMapping("/api/v1/")
 public class OrdersController {
 
-
     @Autowired
     private OrdersRepository  ordersRepository;
-    @GetMapping("/Orders")
-    public List<Orders> getAllOrders() {
+    @GetMapping("/orders")
+    public List<Order> getAllOrders() {
         return ordersRepository.findAll();
+    }
+
+    @PostMapping("/orders")
+    public Order createOrders(@RequestBody Order order) {
+        return ordersRepository.save(order);
+    }
+
+    @PostMapping("/orders/batch")
+    public List<Order> createOrders(@RequestBody List<Order> orders) {
+        return ordersRepository.saveAll(orders);
     }
 }
