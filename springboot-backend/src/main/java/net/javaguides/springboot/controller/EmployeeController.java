@@ -1,7 +1,7 @@
 package net.javaguides.springboot.controller;
 
 import net.javaguides.springboot.model.Employee;
-import net.javaguides.springboot.repository.EmployeeRepository;
+import net.javaguides.springboot.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,20 +11,25 @@ import java.util.List;
 @RequestMapping("/api/v1/")
 public class EmployeeController {
 
+    private final EmployeeService employeeService;
+
     @Autowired
-    private EmployeeRepository employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
     @GetMapping("/employees")
     public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+        return employeeService.getAllEmployees();
     }
 
     @PostMapping("/employees")
     public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeRepository.save(employee);
+        return employeeService.createEmployee(employee);
     }
 
     @PostMapping("/employees/batch")
     public List<Employee> createEmployees(@RequestBody List<Employee> employees) {
-        return employeeRepository.saveAll(employees);
+        return employeeService.createEmployees(employees);
     }
 }

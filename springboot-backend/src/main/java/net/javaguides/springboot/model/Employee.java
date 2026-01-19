@@ -1,7 +1,8 @@
 package net.javaguides.springboot.model;
 
-
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table( name = "employees")
@@ -9,7 +10,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -17,6 +18,8 @@ public class Employee {
     private String lastName;
     @Column(name = "email_id")
     private String emailId;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)  // automatische Order entfernung bei Employee entfernung
+    private List<Order> orders = new ArrayList<>();
 
     public Employee() {
     }
@@ -27,11 +30,21 @@ public class Employee {
         this.emailId = emailId;
     }
 
-    public long getId() {
+    public void addOrder (Order order) {
+        orders.add(order);
+        order.setEmployee(this);
+    }
+
+    public void removeOrder(Order order) {
+        orders.remove(order);
+        order.setEmployee(null);
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,4 +71,6 @@ public class Employee {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+
+    public List<Order> getOrders() { return orders; }
 }
